@@ -4,7 +4,7 @@ from app.domain.entities.base import Base
 
 class Db:
     def __init__(self, url: str) -> None:
-        self.engine = create_async_engine(url=url, echo=True)
+        self.engine = create_async_engine(url=url)
 
     async def session(self):
         async with AsyncSession(bind=self.engine) as session_,\

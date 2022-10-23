@@ -1,4 +1,6 @@
+from typing import Optional
 from pydantic import BaseModel, validator
+from .revision import RevisionDTO
 from re import search
 
 
@@ -29,6 +31,7 @@ class RegisterDTO(SignDTO):
 
 class UserDTO(RegisterDTO):
     scores: int
+    revision: Optional[RevisionDTO]
 
     class Config:
         orm_mode = True
