@@ -8,6 +8,7 @@ from .form import FormDTO
 
 
 class RevisionDTO(BaseModel):
+    id: UUID
     form: FormDTO
     attachments: list[AttachmentDTO]
     shop_address: str  # Пока без валидации, на потом)))
