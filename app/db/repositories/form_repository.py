@@ -3,7 +3,7 @@ from app.domain.entities.form import Form
 from app.domain.entities.task import Task
 from app.domain.interfaces.base_repository import BaseRepository
 from app.exceptions.not_found import NotFoundException
-from app.imports import AsyncSession, update, delete, select
+from app.imports import AsyncSession, update, delete, select, eagerload
 from typing import Any, List
 
 
@@ -36,7 +36,8 @@ class FormRepository(BaseRepository[Form]):
     async def get_templates(self) -> List[Form]:
         return (await self.session.
                 execute(select(Form).
-                        where(Form.is_template == True))).scalars().all()
+                        where(Form.is_template == True).
+                        options(eagerload(Form.tasks)))).scalars().all()
 
     async def create_from_template(self, template: Form) -> Form:
         form = Form(name=template.name, is_template=False)  # type: ignore
