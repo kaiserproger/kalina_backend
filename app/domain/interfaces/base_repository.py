@@ -6,15 +6,18 @@ from app.imports import AsyncSession
 
 
 ModelClass = TypeVar("ModelClass", bound=Base)  # type: ignore
+
+
 class BaseRepository(ABC, Generic[ModelClass]):
-    def __init__(self, session: AsyncSession, model_cls: Type[ModelClass]) -> None:
+    def __init__(self, session: AsyncSession, model_cls: Type[ModelClass])\
+            -> None:
         self.session = session
         self.model_cls = model_cls
 
-    async def create(self, objekt: ModelClass) -> ModelClass:
+    async def create(self, objekt: ModelClass) -> UUID:
         raise NotImplementedError()
 
-    async def update(self, objekt: ModelClass, fields: dict[str, Any]) -> UUID:
+    async def update(self, objekt: ModelClass, fields: dict[str, Any]) -> None:
         raise NotImplementedError()
 
     async def delete(self, id_: UUID) -> bool:

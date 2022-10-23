@@ -1,0 +1,2 @@
+class AlreadyTakenException(Exception):
+    pass
