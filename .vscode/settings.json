@@ -1,6 +1,0 @@
-{
-    "python.analysis.typeCheckingMode": "basic",
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": false,
-    "python.linting.enabled": true
-}
