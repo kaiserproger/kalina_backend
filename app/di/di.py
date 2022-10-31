@@ -15,38 +15,38 @@ from app.domain.services.revision_service import RevisionService
 
 
 async def get_user_repository(session: AsyncSession =
-                              Depends(get_session_stub, use_cache=False)):
+                              Depends(get_session_stub)):
     return UserRepository(session)
 
 
 async def get_form_repository(session: AsyncSession =
-                              Depends(get_session_stub, use_cache=False)):
+                              Depends(get_session_stub)):
     return FormRepository(session)
 
 
 async def get_revision_repository(session: AsyncSession =
-                                  Depends(get_session_stub, use_cache=False)):
+                                  Depends(get_session_stub)):
     return RevisionRepository(session)
 
 
-async def get_cabinet_service(user_repo: UserRepositoryProto = Depends(use_cache=False)):
+async def get_cabinet_service(user_repo: UserRepositoryProto = Depends()):
     return CabinetService(user_repo)  # type: ignore
 
 
-async def get_revision_service(user_repo: UserRepositoryProto = Depends(use_cache=False),
-                               form_repo: FormRepositoryProto = Depends(use_cache=False),
+async def get_revision_service(user_repo: UserRepositoryProto = Depends(),
+                               form_repo: FormRepositoryProto = Depends(),
                                revision_repo: RevisionRepositoryProto
-                               = Depends(use_cache=False)):
+                               = Depends()):
     return RevisionService(revision_repo, form_repo, user_repo)  # type: ignore
 
 
-async def get_user_service(user_repo: UserRepositoryProto = Depends(use_cache=False)):
+async def get_user_service(user_repo: UserRepositoryProto = Depends()):
     return UserService(user_repo)  # type: ignore
 
 
-async def get_form_service(form_repo: FormRepositoryProto = Depends(use_cache=False)):
+async def get_form_service(form_repo: FormRepositoryProto = Depends()):
     return FormService(form_repo)  # type: ignore
 
 
-async def extract_user(decoder: TokenAuthDecoderProto = Depends(use_cache=False)):
+async def extract_user(decoder: TokenAuthDecoderProto = Depends()):
     return await decoder()

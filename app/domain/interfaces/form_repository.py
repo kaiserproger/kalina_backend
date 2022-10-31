@@ -10,8 +10,7 @@ from fastapi import Depends
 
 class FormRepositoryProto(ABC):
     def __init__(self, session: AsyncSession =
-                 Depends(get_session_stub,
-                         use_cache=False)) -> None:
+                 Depends(get_session_stub)) -> None:
         ...
 
     async def create(self, form: Form):

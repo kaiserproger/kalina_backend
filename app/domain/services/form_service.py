@@ -19,8 +19,8 @@ class FormService:
         await self.form_repo.create(form)
 
     async def get_templates(self):
-        return list(map(lambda model: FormDTO.from_orm(model),
-                    (await self.form_repo.get_templates())))
+        templates = await self.form_repo.get_templates()
+        return list(map(lambda model: FormDTO.from_orm(model), templates))
 
     async def get_template(self, template_id: UUID):
         return FormDTO.from_orm(await self.form_repo.read_by_id(template_id))

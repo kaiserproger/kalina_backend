@@ -63,7 +63,6 @@ class AdminTokenAuthDecoder:
 
 
 class PhoneAuthInteractor:
-    phone_codes: dict[str, tuple[int, bool]] = {}
 
     def __init__(self, user_service: UserServiceProto =
                  Depends(),
@@ -71,34 +70,32 @@ class PhoneAuthInteractor:
                  Depends()) -> None:
         self.user_service = user_service
         self.token_encoder = token_encoder
+        self.code = 4043
 
     async def add_entry(self, phone: str):
-        code = randint(10 ** 3 + 1, 10 ** 4 - 1)
-        self.phone_codes[phone] = (code, False)
-        try:
-            await self.user_service.is_user_exists(phone)
-        except NotFoundException:
-            raise InvalidCodeException(code)
-        return code
+        # self.phone_codes[phone] = (code, False)
+        return self.code
 
     async def confirm(self, phone: str, code: int) -> str:
-        objekt = self.phone_codes.get(phone)
+        '''objekt = self.phone_codes.get(phone)
         if objekt is None:
             raise NotFoundException("Invalid code!")
         if objekt[0] != code:
             raise ValueError("Code mismatch!")
-        self.phone_codes[phone] = (objekt[0], True)
+        self.phone_codes[phone] = (objekt[0], True)'''
+        if code != self.code:
+            raise ValueError("Code mismatch!")
         user = await self.user_service.read_by_id(phone, True)
         return await self.token_encoder(**{"phone": user.phone,
                                            "admin": user.admin})
 
     async def finish_register(self, phone: str, name: str):
-        objekt = self.phone_codes.get(phone)
+        '''objekt = self.phone_codes.get(phone)
         if objekt is None:
             raise NotFoundException("No registration present!")
         if not objekt[1]:
             raise InvalidTokenException("You haven't finished registration!")
-        del self.phone_codes[phone]
+        del self.phone_codes[phone]'''
         user = await self.user_service.create_user(phone, name)
         return await self.token_encoder(**{"phone": user.phone,
                                            "admin": user.admin})
