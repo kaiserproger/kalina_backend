@@ -8,7 +8,7 @@ class UserService:
 
     async def create_user(self, phone: str, name: str) -> User:
         await self.user_repo.\
-            create(User(phone=phone, name=name, admin=False))  # type: ignore
+            create(User(phone=phone, name=name, admin=False, scores=0))  # type: ignore
         return await self.user_repo.read_by_id(phone, True)
 
     async def is_user_exists(self, phone: str):
