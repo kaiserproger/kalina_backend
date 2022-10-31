@@ -13,6 +13,4 @@ cabinet_router = APIRouter(prefix="/cabinet")
 })
 async def get_cabinet(cabinet_service: CabinetServiceProto = Depends(),
                       user: User = Depends()) -> UserDTO:
-    if not user.admin:
-        raise InvalidTokenException("Access denied")
     return await cabinet_service.get_user_cabinet(user)
