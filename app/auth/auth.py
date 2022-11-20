@@ -1,6 +1,7 @@
 from typing import Any
 from app.auth.header_extract import HeaderTokenExtractor
 from app.auth.jwt import JWTInteractor
+from app.di.di_stubs import get_redis_stub
 from app.domain.entities.user import User
 from app.domain.interfaces.token_auth_decoder import TokenAuthDecoderProto
 from app.domain.interfaces.token_auth_encoder import TokenAuthEncoderProto
@@ -8,6 +9,8 @@ from app.domain.interfaces.token_interactor import TokenInteractorProto
 from app.domain.interfaces.user_repository import UserRepositoryProto
 from app.domain.interfaces.user_service import UserServiceProto
 from app.exceptions.invalid_token import InvalidTokenException
+from app.exceptions.not_found import NotFoundException
+from app.imports import Pipeline
 from fastapi import Depends
 
 
@@ -64,35 +67,46 @@ class PhoneAuthInteractor:
     def __init__(self, user_service: UserServiceProto =
                  Depends(),
                  token_encoder: TokenAuthEncoderProto =
-                 Depends()) -> None:
+                 Depends(),
+                 redis: Pipeline =
+                 Depends(get_redis_stub)) -> None:
+        self.redis = redis
         self.user_service = user_service
         self.token_encoder = token_encoder
         self.code = 4043
 
     async def add_entry(self, phone: str):
-        # self.phone_codes[phone] = (code, False)
+        # # UNTESTED !!!!!
+        await self.redis.hmset(phone, {
+            "code": self.code,
+            "activated": False
+        })
+        # END UNTESTED
         return self.code
 
     async def confirm(self, phone: str, code: int) -> str:
-        '''objekt = self.phone_codes.get(phone)
-        if objekt is None:
-            raise NotFoundException("Invalid code!")
-        if objekt[0] != code:
+        # UNTESTED !!!!!
+        value: dict = await self.redis.hgetall(phone)
+        extracted_code: int = value["code"]
+        if code != extracted_code:
             raise ValueError("Code mismatch!")
-        self.phone_codes[phone] = (objekt[0], True)'''
-        if code != self.code:
-            raise ValueError("Code mismatch!")
+        await self.redis.hmset(phone, {
+            "code": extracted_code,
+            "activated": True
+        })
+        # END UNTESTED
         user = await self.user_service.read_by_id(phone, True)
         return await self.token_encoder(**{"phone": user.phone,
                                            "admin": user.admin})
 
     async def finish_register(self, phone: str, name: str):
-        '''objekt = self.phone_codes.get(phone)
-        if objekt is None:
+        # UNTESTED !!!!!
+        value: dict = await self.redis.hgetall(phone)
+        if not value:
             raise NotFoundException("No registration present!")
-        if not objekt[1]:
+        if not value.get("activated"):
             raise InvalidTokenException("You haven't finished registration!")
-        del self.phone_codes[phone]'''
+        # END UNTESTED
         user = await self.user_service.create_user(phone, name)
         return await self.token_encoder(**{"phone": user.phone,
                                            "admin": user.admin})

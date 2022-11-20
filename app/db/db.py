@@ -1,5 +1,6 @@
 from app.imports import create_async_engine, AsyncSession
 from app.domain.entities.base import Base
+from redis.asyncio import from_url
 
 
 class Db:
@@ -17,4 +18,9 @@ class Db:
 
 
 class RedisConnector:
-    pass
+    def __init__(self, url: str) -> None:
+        self.redis_client = from_url(url)
+
+    async def session(self):
+        async with self.redis_client.pipeline(transaction=True) as tx:
+            yield tx
