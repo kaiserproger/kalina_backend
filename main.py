@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.cabinet import cabinet_router
-from app.api.common import common_router
+from app.api.auth import common_router
 from app.api.revision import revision_router
 from app.api.template import template_router
 from app.auth.auth import AdminTokenAuthDecoder, TokenAuthDecoder,\
