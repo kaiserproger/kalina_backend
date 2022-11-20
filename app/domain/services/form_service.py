@@ -1,13 +1,14 @@
 from uuid import UUID
 from app.domain.entities.task import Task
 from app.domain.entities.form import Form
-from app.db.repositories.form_repository import FormRepository
+from app.domain.interfaces.form_repository import FormRepositoryProto
+from app.domain.interfaces.form_service import FormServiceProto
 from app.schemas.form import FormDTO
 from app.schemas.task import TaskDTO
 
 
-class FormService:
-    def __init__(self, form_repo: FormRepository):
+class FormService(FormServiceProto):
+    def __init__(self, form_repo: FormRepositoryProto):
         self.form_repo = form_repo
 
     async def create_template(self, tasks: list[TaskDTO], name: str):

@@ -1,10 +1,11 @@
-from app.db.repositories.user_repository import UserRepository
 from app.domain.entities.user import User
+from app.domain.interfaces.cabinet_service import CabinetServiceProto
+from app.domain.interfaces.user_repository import UserRepositoryProto
 from app.schemas.user import UserDTO
 
 
-class CabinetService:
-    def __init__(self, user_repo: UserRepository) -> None:
+class CabinetService(CabinetServiceProto):
+    def __init__(self, user_repo: UserRepositoryProto) -> None:
         self.user_repo = user_repo
 
     async def get_user_cabinet(self, user: User) -> UserDTO:

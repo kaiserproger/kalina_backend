@@ -1,14 +1,14 @@
 from uuid import UUID
 from app.domain.entities.revision import Revision
-from app.domain.interfaces.base_repository import BaseRepository
+from app.domain.interfaces.revision_repository import RevisionRepositoryProto
 from app.exceptions.not_found import NotFoundException
 from app.imports import AsyncSession, update, delete, select
 from typing import Any, List
 
 
-class RevisionRepository(BaseRepository[Revision]):
+class RevisionRepository(RevisionRepositoryProto):
     def __init__(self, session: AsyncSession) -> None:
-        super().__init__(session, Revision)
+        self.session = session
 
     async def create(self, revision: Revision):
         self.session.add(revision)
@@ -38,4 +38,5 @@ class RevisionRepository(BaseRepository[Revision]):
         return (await self.session.
                 execute(select(Revision).
                         where(Revision.user_id is None).
-                        where(not Revision.completed))).scalars().all()
+                        where(not Revision.completed).
+                        offset(offset).limit(limit))).scalars().all()

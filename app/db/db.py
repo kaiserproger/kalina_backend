@@ -13,4 +13,8 @@ class Db:
 
     async def create_all(self):
         async with self.engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
+            await conn.run_sync(Base.metadata.create_all)  # type: ignore
+
+
+class RedisConnector:
+    pass

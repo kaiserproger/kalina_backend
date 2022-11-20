@@ -1,20 +1,22 @@
 from datetime import datetime
 from typing import Any
 from uuid import UUID
-from app.db.repositories.form_repository import FormRepository
-from app.db.repositories.revision_repository import RevisionRepository
-from app.db.repositories.user_repository import UserRepository
 from app.domain.entities.revision import Revision
 from app.domain.entities.user import User
+from app.domain.interfaces.form_repository import FormRepositoryProto
+from app.domain.interfaces.revision_repository import RevisionRepositoryProto
+from app.domain.interfaces.revision_service import RevisionServiceProto
+from app.domain.interfaces.user_repository import UserRepositoryProto
 from app.schemas.form import FormDTO
 from app.schemas.revision import RevisionDTO
 from app.exceptions.already_taken import AlreadyTakenException
 from app.exceptions.not_found import NotFoundException
 
 
-class RevisionService:
-    def __init__(self, revision_repo: RevisionRepository,
-                 form_repo: FormRepository, user_repo: UserRepository) -> None:
+class RevisionService(RevisionServiceProto):
+    def __init__(self, revision_repo: RevisionRepositoryProto,
+                 form_repo: FormRepositoryProto,
+                 user_repo: UserRepositoryProto) -> None:
         self.rev_repo = revision_repo
         self.form_repo = form_repo
         self.user_repo = user_repo
@@ -57,8 +59,7 @@ class RevisionService:
         if revision.user_id is not None:
             raise AlreadyTakenException()
         user.revision = revision
-        self.user_repo.session.add(user)
-        await self.user_repo.session.flush()
+        await self.user_repo.update(user)
 
     async def approve_revision(self, id_: UUID):
         revision = await self.rev_repo.read_by_id(id_)

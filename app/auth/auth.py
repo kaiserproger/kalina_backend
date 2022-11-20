@@ -1,20 +1,17 @@
-from random import randint
 from typing import Any
 from app.auth.header_extract import HeaderTokenExtractor
 from app.auth.jwt import JWTInteractor
 from app.domain.entities.user import User
+from app.domain.interfaces.token_auth_decoder import TokenAuthDecoderProto
 from app.domain.interfaces.token_auth_encoder import TokenAuthEncoderProto
 from app.domain.interfaces.token_interactor import TokenInteractorProto
 from app.domain.interfaces.user_repository import UserRepositoryProto
 from app.domain.interfaces.user_service import UserServiceProto
-from app.exceptions.invalid_code import InvalidCodeException
 from app.exceptions.invalid_token import InvalidTokenException
 from fastapi import Depends
 
-from app.exceptions.not_found import NotFoundException
 
-
-class TokenInteractor:
+class TokenInteractor(TokenInteractorProto):
     def __init__(self, extractor: HeaderTokenExtractor =
                  Depends(),
                  jwt_interactor: JWTInteractor = Depends()) -> None:
@@ -28,7 +25,7 @@ class TokenInteractor:
         return await self.jwt_interactor.decode_token(token)
 
 
-class TokenAuthDecoder:
+class TokenAuthDecoder(TokenAuthDecoderProto):
     def __init__(self, interactor: TokenInteractorProto = Depends(),
                  user_repo: UserRepositoryProto = Depends()) -> None:
         self.user_repo = user_repo
@@ -40,7 +37,7 @@ class TokenAuthDecoder:
         return user
 
 
-class TokenAuthEncoder:
+class TokenAuthEncoder(TokenAuthEncoderProto):
     def __init__(self, interactor: JWTInteractor = Depends()) -> None:
         self.interactor = interactor
 

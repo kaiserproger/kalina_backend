@@ -1,15 +1,15 @@
 from uuid import UUID
 from app.domain.entities.form import Form
 from app.domain.entities.task import Task
-from app.domain.interfaces.base_repository import BaseRepository
+from app.domain.interfaces.form_repository import FormRepositoryProto
 from app.exceptions.not_found import NotFoundException
 from app.imports import AsyncSession, update, delete, select, eagerload
 from typing import Any, List
 
 
-class FormRepository(BaseRepository[Form]):
+class FormRepository(FormRepositoryProto):
     def __init__(self, session: AsyncSession) -> None:
-        super().__init__(session, Form)
+        self.session = session
 
     async def create(self, form: Form):
         self.session.add(form)
@@ -36,7 +36,7 @@ class FormRepository(BaseRepository[Form]):
     async def get_templates(self) -> List[Form]:
         return (await self.session.
                 execute(select(Form).
-                        where(Form.is_template == True).
+                        where(Form.is_template).
                         options(eagerload(Form.tasks)))).scalars().all()
 
     async def create_from_template(self, template: Form) -> Form:
