@@ -86,14 +86,12 @@ class PhoneAuthInteractor:
 
     async def confirm(self, phone: str, code: int) -> str:
         # UNTESTED !!!!!
-        value: dict = await self.redis.hgetall(phone)
+        value: dict = await self.redis.hget(phone, "code")
         extracted_code: int = value["code"]
         if code != extracted_code:
             raise ValueError("Code mismatch!")
-        await self.redis.hmset(phone, {
-            "code": extracted_code,
-            "activated": True
-        })
+        await self.redis.hdel(phone, "code")
+        await self.redis.hdel(phone, "activated")
         # END UNTESTED
         user = await self.user_service.read_by_id(phone, True)
         return await self.token_encoder(**{"phone": user.phone,
