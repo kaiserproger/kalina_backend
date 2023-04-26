@@ -5,10 +5,15 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
-
 from alembic import context
 
-from app.domain.entities.base import Base
+from app.domain.entities.attachment import *
+from app.domain.entities.revision import *
+from app.domain.entities.form import *
+from app.domain.entities.revision import *
+from app.domain.entities.task import *
+from app.domain.entities.user import *
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

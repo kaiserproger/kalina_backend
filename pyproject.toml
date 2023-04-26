@@ -17,6 +17,7 @@ redis = "^4.3.4"
 black = "^22.10.0"
 pytest = "^7.2.0"
 pytest-asyncio = "^0.20.2"
+asyncpg = "^0.27.0"
 
 
 [tool.poetry.group.dev.dependencies]
