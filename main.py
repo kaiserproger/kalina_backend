@@ -6,6 +6,7 @@ from app.api.revision import revision_router
 from app.api.template import template_router
 from app.auth.auth import AdminTokenAuthDecoder, TokenAuthDecoder,\
     TokenAuthEncoder, TokenInteractor
+from app.core.settings import Settings
 from app.di.di_stubs import get_redis_stub, get_session_stub
 from app.domain.entities.user import User
 from app.domain.interfaces.admin_token_decoder import AdminTokenAuthDecoderProto
@@ -34,9 +35,11 @@ from app.di.di import extract_user, get_form_service, get_user_repository,\
     get_user_service
 
 
+config = Settings()  # type: ignore
+
 app = FastAPI()
-db = Db("postgresql+asyncpg://postgres:postgres@localhost/main")
-redis_connector = RedisConnector("redis://localhost")
+db = Db(config.db_url)
+redis_connector = RedisConnector(config.redis_url)
 
 app.add_middleware(
     CORSMiddleware,
