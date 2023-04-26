@@ -14,6 +14,5 @@ LOG_LEVEL=${LOG_LEVEL:-info}
 LOG_CONFIG=${LOG_CONFIG:-/src/logging.ini}
 
 # Start Uvicorn with live reload
-poetry shell
 alembic upgrade head
 exec uvicorn --reload --proxy-headers --host $HOST --port $PORT --log-config $LOG_CONFIG "$src_MODULE"

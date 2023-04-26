@@ -18,7 +18,6 @@ lib/
 lib64/
 parts/
 sdist/
-.vscode/
 var/
 wheels/
 pip-wheel-metadata/
@@ -104,6 +103,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.prefect
 .venv
 env/
 venv/
@@ -128,3 +128,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+postgres-data*
+node_modules/
+.DS_Store
+
+# PyCharm
+.idea/
+backup.dump
+backup.dump.gz
+.vscode
