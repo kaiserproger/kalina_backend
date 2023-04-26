@@ -22,17 +22,17 @@ RUN python3 -m venv $POETRY_VENV \
 # Add `poetry` to PATH
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
-WORKDIR /app
 
-# Install dependencies
+COPY . /src
+ENV PATH "$PATH:/src/scripts"
+
+RUN useradd -m -d /src -s /bin/bash app \
+    && chown -R app:app /src/* && chmod +x /src/scripts/*
+
+WORKDIR /src
+
 COPY poetry.lock pyproject.toml ./
 RUN poetry install
-
-COPY . /app
-ENV PATH "$PATH:/app/scripts"
-
-RUN useradd -m -d /app -s /bin/bash app \
-    && chown -R app:app /app/* && chmod +x /app/scripts/*
 
 USER app
 
