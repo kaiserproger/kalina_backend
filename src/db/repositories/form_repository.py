@@ -42,7 +42,7 @@ class FormRepository(FormRepositoryProto):
     async def create_from_template(self, template: Form) -> Form:
         form = Form(name=template.name, is_template=False)  # type: ignore
         for i in template.tasks:
-            form.tasks.srcend(Task(task_content=i.task_content,
+            form.tasks.append(Task(task_content=i.task_content,
                                    task_type=i.task_type,
                                    answers=i.answers))  # type: ignore
         self.session.add(form)

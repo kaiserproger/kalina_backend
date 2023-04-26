@@ -14,7 +14,7 @@ class FormService(FormServiceProto):
     async def create_template(self, tasks: list[TaskDTO], name: str):
         form = Form(name=name, is_template=True)  # type: ignore
         for task in tasks:
-            form.tasks.srcend(Task(task_content=task.task_content,
+            form.tasks.append(Task(task_content=task.task_content,
                                    task_type=task.task_type,
                                    answers=task.answer))  # type: ignore
         await self.form_repo.create(form)

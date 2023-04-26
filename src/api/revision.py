@@ -1,7 +1,7 @@
 from typing import List
 from uuid import UUID
 from fastapi import APIRouter, Depends, Response, Path
-from di.di_stubs import user_stub
+from src.di.di_stubs import user_stub
 from src.domain.interfaces.\
     admin_token_decoder import AdminTokenAuthDecoderProto
 from src.domain.entities.user import User
