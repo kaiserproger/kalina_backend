@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from di.di_stubs import user_stub
+from src.di.di_stubs import user_stub
 from src.domain.entities.user import User
 from src.domain.interfaces.cabinet_service import CabinetServiceProto
 from src.schemas.user import UserDTO

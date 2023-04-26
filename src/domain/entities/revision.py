@@ -20,4 +20,4 @@ class Revision(Base):
     shop_address = Column(String)
     expire_date = Column(DateTime)
     completed = Column(Boolean, default=False)
-    srcroved = Column(Boolean, default=False)
+    approved = Column(Boolean, default=False)

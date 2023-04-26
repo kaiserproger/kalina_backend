@@ -51,5 +51,5 @@ class RevisionServiceProto(ABC):
         ...
 
     @abstractmethod
-    async def srcrove_revision(self, id_: UUID):
+    async def approve_revision(self, id_: UUID):
         ...

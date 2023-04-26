@@ -70,13 +70,13 @@ async def select_revision(
     await service.select_revision(user, revision_id)
 
 
-@revision_router.post("/srcrove/{revision_id}",
+@revision_router.post("/approve/{revision_id}",
                       dependencies=[Depends(AdminTokenAuthDecoderProto)])
-async def srcrove_revision(
+async def approve_revision(
     revision_id: UUID = Path(),
     service: RevisionServiceProto = Depends()
 ) -> None:
-    await service.srcrove_revision(revision_id)
+    await service.approve_revision(revision_id)
 
 
 @revision_router.post("/revision/form", responses={

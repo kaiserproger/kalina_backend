@@ -61,6 +61,6 @@ class RevisionService(RevisionServiceProto):
         user.revision = revision
         await self.user_repo.update(user)
 
-    async def srcrove_revision(self, id_: UUID):
+    async def approve_revision(self, id_: UUID):
         revision = await self.rev_repo.read_by_id(id_)
-        await self.rev_repo.update(revision, {"srcroved": True})
+        await self.rev_repo.update(revision, {"approved": True})
