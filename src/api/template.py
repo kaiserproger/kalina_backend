@@ -14,20 +14,24 @@ template_router = APIRouter(prefix="/template")
 
 
 @template_router.post("/", dependencies=[Depends(AdminTokenAuthDecoderProto)])
-async def create_template(tasks: list[TaskDTO],
-                          name: str,
-                          form_service: FormServiceProto = Depends()):
+async def create_template(
+    tasks: list[TaskDTO],
+    name: str,
+    form_service: FormServiceProto = Depends()
+):
     await form_service.create_template(tasks, name)
 
 
 @template_router.get("/")
-async def get_templates(form_service: FormServiceProto =
-                        Depends()) -> List[FormDTO]:
+async def get_templates(
+    form_service: FormServiceProto = Depends()
+) -> List[FormDTO]:
     return await form_service.get_templates()
 
 
 @template_router.get("/{form_id}")
-async def get_template(template_id: UUID,
-                       form_service: FormServiceProto =
-                       Depends()) -> FormDTO:
+async def get_template(
+    template_id: UUID,
+    form_service: FormServiceProto = Depends()
+) -> FormDTO:
     return await form_service.get_template(template_id)

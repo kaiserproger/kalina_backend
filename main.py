@@ -7,7 +7,7 @@ from src.api.template import template_router
 from src.auth.auth import AdminTokenAuthDecoder, TokenAuthDecoder,\
     TokenAuthEncoder, TokenInteractor
 from src.core.settings import Settings
-from src.di.di_stubs import get_redis_stub, get_session_stub
+from src.di.di_stubs import get_redis_stub, get_session_stub, user_stub
 from src.domain.entities.user import User
 from src.domain.interfaces.admin_token_decoder import AdminTokenAuthDecoderProto
 from src.domain.interfaces.cabinet_service import CabinetServiceProto
@@ -89,4 +89,4 @@ src.dependency_overrides[TokenAuthDecoderProto] = TokenAuthDecoder
 src.dependency_overrides[TokenAuthEncoderProto] = TokenAuthEncoder
 src.dependency_overrides[AdminTokenAuthDecoderProto] = AdminTokenAuthDecoder
 src.dependency_overrides[TokenInteractorProto] = TokenInteractor
-src.dependency_overrides[User] = extract_user
+src.dependency_overrides[user_stub] = extract_user

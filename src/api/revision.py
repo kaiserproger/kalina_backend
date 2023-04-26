@@ -1,6 +1,7 @@
 from typing import List
 from uuid import UUID
 from fastapi import APIRouter, Depends, Response, Path
+from di.di_stubs import user_stub
 from src.domain.interfaces.\
     admin_token_decoder import AdminTokenAuthDecoderProto
 from src.domain.entities.user import User
@@ -17,7 +18,7 @@ revision_router = APIRouter(prefix="/revision")
     200: {"description": ""},
     404: {"description": "No revision selected!"},
 })
-async def get_current_revision(user: User = Depends(),
+async def get_current_revision(user: User = Depends(user_stub),
                                rev_service: RevisionServiceProto =
                                Depends())\
                                 -> RevisionDTO:
@@ -49,30 +50,32 @@ async def create_revision(dto: CreateRevisionDTO,
 })
 async def update_revision(attachments: list[AttachmentDTO],
                           user: User =
-                          Depends()) -> None:
+                          Depends(user_stub)) -> None:
     ...
 
 
 @revision_router.post("/complete")
-async def complete_revision(user: User = Depends(),
+async def complete_revision(user: User = Depends(user_stub),
                             service: RevisionServiceProto =
                             Depends()) -> None:
     await service.complete_revision(user)
 
 
 @revision_router.post("/select/{revision_id}")
-async def select_revision(revision_id: UUID = Path(),
-                          user: User = Depends(),
-                          service: RevisionServiceProto =
-                          Depends()) -> None:
+async def select_revision(
+    revision_id: UUID = Path(),
+    user: User = Depends(user_stub),
+    service: RevisionServiceProto = Depends()
+)-> None:
     await service.select_revision(user, revision_id)
 
 
 @revision_router.post("/srcrove/{revision_id}",
                       dependencies=[Depends(AdminTokenAuthDecoderProto)])
-async def srcrove_revision(revision_id: UUID = Path(),
-                           service: RevisionServiceProto =
-                           Depends()) -> None:
+async def srcrove_revision(
+    revision_id: UUID = Path(),
+    service: RevisionServiceProto = Depends()
+) -> None:
     await service.srcrove_revision(revision_id)
 
 
@@ -80,8 +83,9 @@ async def srcrove_revision(revision_id: UUID = Path(),
     200: {"description": "Form succesfully uploaded"},
 
 })
-async def update_revision_form(form: FormDTO,
-                               user: User = Depends(),
-                               service: RevisionServiceProto =
-                               Depends()) -> None:
+async def update_revision_form(
+    form: FormDTO,
+    user: User = Depends(user_stub),
+    service: RevisionServiceProto = Depends()
+) -> None:
     await service.update_revision_form(user, form)
