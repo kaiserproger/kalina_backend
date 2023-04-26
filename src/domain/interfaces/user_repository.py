@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from app.di.di_stubs import get_session_stub
-from app.imports import AsyncSession
-from app.domain.entities.user import User
+from src.di.di_stubs import get_session_stub
+from src.imports import AsyncSession
+from src.domain.entities.user import User
 from typing import List
 
 from fastapi import Depends

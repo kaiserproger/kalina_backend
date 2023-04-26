@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID
 from pydantic import BaseModel
 
-from app.schemas.attachment import AttachmentDTO
+from src.schemas.attachment import AttachmentDTO
 
 from .form import FormDTO
 

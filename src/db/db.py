@@ -1,5 +1,5 @@
-from app.imports import create_async_engine, AsyncSession
-from app.domain.entities.base import Base
+from src.imports import create_async_engine, AsyncSession
+from src.domain.entities.base import Base
 from redis.asyncio import from_url
 
 

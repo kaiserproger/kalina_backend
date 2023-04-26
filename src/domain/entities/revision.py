@@ -1,9 +1,9 @@
 from typing import Optional
 from uuid import uuid4
-from app.domain.entities.attachment import Attachment
-from app.domain.entities.form import Form
+from src.domain.entities.attachment import Attachment
+from src.domain.entities.form import Form
 from .base import Base
-from app.imports import Column, ForeignKey, UUID, relationship, String,\
+from src.imports import Column, ForeignKey, UUID, relationship, String,\
     DateTime, Boolean
 
 
@@ -20,4 +20,4 @@ class Revision(Base):
     shop_address = Column(String)
     expire_date = Column(DateTime)
     completed = Column(Boolean, default=False)
-    approved = Column(Boolean, default=False)
+    srcroved = Column(Boolean, default=False)

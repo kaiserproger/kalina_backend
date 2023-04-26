@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.domain.entities.enums import MediaEnum
+from src.domain.entities.enums import MediaEnum
 
 
 class AttachmentDTO(BaseModel):

@@ -31,7 +31,7 @@ def upgrade() -> None:
     sa.Column('shop_address', sa.String(), nullable=True),
     sa.Column('expire_date', sa.DateTime(), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
-    sa.Column('approved', sa.Boolean(), nullable=True),
+    sa.Column('srcroved', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['User.phone'], ),
     sa.PrimaryKeyConstraint('id')
     )

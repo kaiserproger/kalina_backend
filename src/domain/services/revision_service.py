@@ -1,16 +1,16 @@
 from datetime import datetime
 from typing import Any
 from uuid import UUID
-from app.domain.entities.revision import Revision
-from app.domain.entities.user import User
-from app.domain.interfaces.form_repository import FormRepositoryProto
-from app.domain.interfaces.revision_repository import RevisionRepositoryProto
-from app.domain.interfaces.revision_service import RevisionServiceProto
-from app.domain.interfaces.user_repository import UserRepositoryProto
-from app.schemas.form import FormDTO
-from app.schemas.revision import RevisionDTO
-from app.exceptions.already_taken import AlreadyTakenException
-from app.exceptions.not_found import NotFoundException
+from src.domain.entities.revision import Revision
+from src.domain.entities.user import User
+from src.domain.interfaces.form_repository import FormRepositoryProto
+from src.domain.interfaces.revision_repository import RevisionRepositoryProto
+from src.domain.interfaces.revision_service import RevisionServiceProto
+from src.domain.interfaces.user_repository import UserRepositoryProto
+from src.schemas.form import FormDTO
+from src.schemas.revision import RevisionDTO
+from src.exceptions.already_taken import AlreadyTakenException
+from src.exceptions.not_found import NotFoundException
 
 
 class RevisionService(RevisionServiceProto):
@@ -61,6 +61,6 @@ class RevisionService(RevisionServiceProto):
         user.revision = revision
         await self.user_repo.update(user)
 
-    async def approve_revision(self, id_: UUID):
+    async def srcrove_revision(self, id_: UUID):
         revision = await self.rev_repo.read_by_id(id_)
-        await self.rev_repo.update(revision, {"approved": True})
+        await self.rev_repo.update(revision, {"srcroved": True})

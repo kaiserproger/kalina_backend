@@ -1,6 +1,6 @@
 from fastapi import Header
 
-from app.exceptions.invalid_token import InvalidTokenException
+from src.exceptions.invalid_token import InvalidTokenException
 
 
 class HeaderTokenExtractor:

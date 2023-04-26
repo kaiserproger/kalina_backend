@@ -34,6 +34,8 @@ WORKDIR /src
 COPY poetry.lock pyproject.toml ./
 RUN poetry install
 
+RUN poetry exit
+
 USER app
 
 CMD ["./scripts/start-dev.sh"]

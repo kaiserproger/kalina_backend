@@ -1,11 +1,11 @@
 from typing import List
 from uuid import UUID
 from fastapi import APIRouter
-from app.domain.interfaces.admin_token_decoder import AdminTokenAuthDecoderProto
-from app.domain.interfaces.form_service import FormServiceProto
-from app.schemas.form import FormDTO
+from src.domain.interfaces.admin_token_decoder import AdminTokenAuthDecoderProto
+from src.domain.interfaces.form_service import FormServiceProto
+from src.schemas.form import FormDTO
 
-from app.schemas.task import TaskDTO
+from src.schemas.task import TaskDTO
 
 from fastapi import Depends
 

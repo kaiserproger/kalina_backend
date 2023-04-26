@@ -1,7 +1,7 @@
-from app.domain.entities.user import User
-from app.domain.interfaces.cabinet_service import CabinetServiceProto
-from app.domain.interfaces.user_repository import UserRepositoryProto
-from app.schemas.user import UserDTO
+from src.domain.entities.user import User
+from src.domain.interfaces.cabinet_service import CabinetServiceProto
+from src.domain.interfaces.user_repository import UserRepositoryProto
+from src.schemas.user import UserDTO
 
 
 class CabinetService(CabinetServiceProto):

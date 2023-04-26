@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from app.imports import AsyncSession
-from app.domain.entities.form import Form
+from src.imports import AsyncSession
+from src.domain.entities.form import Form
 from typing import Any, List
 from uuid import UUID
-from app.di.di_stubs import get_session_stub
+from src.di.di_stubs import get_session_stub
 
 from fastapi import Depends
 

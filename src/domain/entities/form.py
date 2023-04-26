@@ -1,6 +1,6 @@
 from .base import Base
 from .task import Task
-from app.imports import Column, ForeignKey, UUID, relationship, Boolean, String
+from src.imports import Column, ForeignKey, UUID, relationship, Boolean, String
 from uuid import uuid4
 
 

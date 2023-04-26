@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any
-from app.auth.header_extract import HeaderTokenExtractor
+from src.auth.header_extract import HeaderTokenExtractor
 
-from app.auth.jwt import JWTInteractor
+from src.auth.jwt import JWTInteractor
 from fastapi import Depends
 
 

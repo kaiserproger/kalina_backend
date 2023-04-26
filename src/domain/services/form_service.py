@@ -1,10 +1,10 @@
 from uuid import UUID
-from app.domain.entities.task import Task
-from app.domain.entities.form import Form
-from app.domain.interfaces.form_repository import FormRepositoryProto
-from app.domain.interfaces.form_service import FormServiceProto
-from app.schemas.form import FormDTO
-from app.schemas.task import TaskDTO
+from src.domain.entities.task import Task
+from src.domain.entities.form import Form
+from src.domain.interfaces.form_repository import FormRepositoryProto
+from src.domain.interfaces.form_service import FormServiceProto
+from src.schemas.form import FormDTO
+from src.schemas.task import TaskDTO
 
 
 class FormService(FormServiceProto):
@@ -14,7 +14,7 @@ class FormService(FormServiceProto):
     async def create_template(self, tasks: list[TaskDTO], name: str):
         form = Form(name=name, is_template=True)  # type: ignore
         for task in tasks:
-            form.tasks.append(Task(task_content=task.task_content,
+            form.tasks.srcend(Task(task_content=task.task_content,
                                    task_type=task.task_type,
                                    answers=task.answer))  # type: ignore
         await self.form_repo.create(form)

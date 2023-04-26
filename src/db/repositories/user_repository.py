@@ -1,7 +1,7 @@
-from app.domain.interfaces.user_repository import UserRepositoryProto
-from app.exceptions.not_found import NotFoundException
-from app.imports import AsyncSession, update, delete, select, noload
-from app.domain.entities.user import User
+from src.domain.interfaces.user_repository import UserRepositoryProto
+from src.exceptions.not_found import NotFoundException
+from src.imports import AsyncSession, update, delete, select, noload
+from src.domain.entities.user import User
 from typing import Any, List
 
 

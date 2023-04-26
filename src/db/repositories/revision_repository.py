@@ -1,8 +1,8 @@
 from uuid import UUID
-from app.domain.entities.revision import Revision
-from app.domain.interfaces.revision_repository import RevisionRepositoryProto
-from app.exceptions.not_found import NotFoundException
-from app.imports import AsyncSession, update, delete, select
+from src.domain.entities.revision import Revision
+from src.domain.interfaces.revision_repository import RevisionRepositoryProto
+from src.exceptions.not_found import NotFoundException
+from src.imports import AsyncSession, update, delete, select
 from typing import Any, List
 
 

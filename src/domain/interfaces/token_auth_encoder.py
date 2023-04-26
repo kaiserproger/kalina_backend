@@ -3,7 +3,7 @@ from typing import Any
 
 from fastapi import Depends
 
-from app.auth.jwt import JWTInteractor
+from src.auth.jwt import JWTInteractor
 
 
 class TokenAuthEncoderProto(ABC):

@@ -7,12 +7,12 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
 from alembic import context
 
-from app.domain.entities.attachment import *
-from app.domain.entities.revision import *
-from app.domain.entities.form import *
-from app.domain.entities.revision import *
-from app.domain.entities.task import *
-from app.domain.entities.user import *
+from src.domain.entities.attachment import *
+from src.domain.entities.revision import *
+from src.domain.entities.form import *
+from src.domain.entities.revision import *
+from src.domain.entities.task import *
+from src.domain.entities.user import *
 
 
 # this is the Alembic Config object, which provides
@@ -26,7 +26,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
+# from mysrc import mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 

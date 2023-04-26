@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 
-from app.auth.auth import PhoneAuthInteractor
+from src.auth.auth import PhoneAuthInteractor
 
-from app.schemas.user import RegisterDTO, SignDTO, VerifyDTO
+from src.schemas.user import RegisterDTO, SignDTO, VerifyDTO
 
 
 common_router = APIRouter()

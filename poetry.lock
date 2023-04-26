@@ -675,7 +675,7 @@ test = ["Cython (>=0.29.24,<0.30.0)"]
 [[package]]
 name = "idna"
 version = "3.4"
-description = "Internationalized Domain Names in Applications (IDNA)"
+description = "Internationalized Domain Names in srclications (IDNA)"
 category = "main"
 optional = false
 python-versions = ">=3.5"
@@ -955,7 +955,7 @@ files = [
 [[package]]
 name = "platformdirs"
 version = "3.3.0"
-description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+description = "A small Python package for determining srcropriate platform-specific dirs, e.g. a \"user data dir\"."
 category = "main"
 optional = false
 python-versions = ">=3.7"
@@ -966,7 +966,7 @@ files = [
 
 [package.extras]
 docs = ["furo (>=2023.3.27)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
-test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)"]
+test = ["srcdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)"]
 
 [[package]]
 name = "pluggy"

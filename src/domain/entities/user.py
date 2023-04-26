@@ -1,6 +1,6 @@
-from app.domain.entities.revision import Revision
+from src.domain.entities.revision import Revision
 from .base import Base
-from app.imports import Column, String, relationship, Boolean, Integer
+from src.imports import Column, String, relationship, Boolean, Integer
 
 
 class User(Base):

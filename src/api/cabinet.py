@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
-from app.domain.entities.user import User
-from app.domain.interfaces.cabinet_service import CabinetServiceProto
-from app.exceptions.invalid_token import InvalidTokenException
-from app.schemas.user import UserDTO
+from src.domain.entities.user import User
+from src.domain.interfaces.cabinet_service import CabinetServiceProto
+from src.exceptions.invalid_token import InvalidTokenException
+from src.schemas.user import UserDTO
 
 
 cabinet_router = APIRouter(prefix="/cabinet")

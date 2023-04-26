@@ -1,7 +1,7 @@
 from abc import ABC
-from app.di.di_stubs import get_session_stub
-from app.imports import AsyncSession
-from app.domain.entities.revision import Revision
+from src.di.di_stubs import get_session_stub
+from src.imports import AsyncSession
+from src.domain.entities.revision import Revision
 from typing import List, Any
 from uuid import UUID
 from fastapi import Depends

@@ -1,6 +1,6 @@
 from uuid import uuid4
 from .base import Base
-from app.imports import Column, Enum, String, UUID, ForeignKey
+from src.imports import Column, Enum, String, UUID, ForeignKey
 from .enums import MediaEnum
 
 

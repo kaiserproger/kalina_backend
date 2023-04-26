@@ -1,17 +1,17 @@
-from app.di.di_stubs import get_session_stub
-from app.domain.interfaces.token_auth_decoder import TokenAuthDecoderProto
-from app.domain.interfaces.user_repository import UserRepositoryProto
-from app.domain.interfaces.form_repository import FormRepositoryProto
-from app.domain.interfaces.revision_repository import RevisionRepositoryProto
-from app.domain.services.form_service import FormService
-from app.domain.services.user_service import UserService
-from app.imports import AsyncSession
+from src.di.di_stubs import get_session_stub
+from src.domain.interfaces.token_auth_decoder import TokenAuthDecoderProto
+from src.domain.interfaces.user_repository import UserRepositoryProto
+from src.domain.interfaces.form_repository import FormRepositoryProto
+from src.domain.interfaces.revision_repository import RevisionRepositoryProto
+from src.domain.services.form_service import FormService
+from src.domain.services.user_service import UserService
+from src.imports import AsyncSession
 from fastapi import Depends
-from app.db.repositories.user_repository import UserRepository
-from app.db.repositories.form_repository import FormRepository
-from app.db.repositories.revision_repository import RevisionRepository
-from app.domain.services.cabinet_service import CabinetService
-from app.domain.services.revision_service import RevisionService
+from src.db.repositories.user_repository import UserRepository
+from src.db.repositories.form_repository import FormRepository
+from src.db.repositories.revision_repository import RevisionRepository
+from src.domain.services.cabinet_service import CabinetService
+from src.domain.services.revision_service import RevisionService
 
 
 async def get_user_repository(session: AsyncSession =

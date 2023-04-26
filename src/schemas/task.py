@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.domain.entities.enums import TaskTypeEnum
+from src.domain.entities.enums import TaskTypeEnum
 
 
 class TaskDTO(BaseModel):

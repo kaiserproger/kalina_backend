@@ -2,11 +2,11 @@ from abc import ABC, abstractmethod
 from typing import List
 from uuid import UUID
 
-from app.schemas.form import FormDTO
+from src.schemas.form import FormDTO
 
 from .form_repository import FormRepositoryProto
 from fastapi import Depends
-from app.schemas.task import TaskDTO
+from src.schemas.task import TaskDTO
 
 
 class FormServiceProto(ABC):

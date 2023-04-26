@@ -1,9 +1,9 @@
 from uuid import UUID
-from app.domain.entities.form import Form
-from app.domain.entities.task import Task
-from app.domain.interfaces.form_repository import FormRepositoryProto
-from app.exceptions.not_found import NotFoundException
-from app.imports import AsyncSession, update, delete, select, eagerload
+from src.domain.entities.form import Form
+from src.domain.entities.task import Task
+from src.domain.interfaces.form_repository import FormRepositoryProto
+from src.exceptions.not_found import NotFoundException
+from src.imports import AsyncSession, update, delete, select, eagerload
 from typing import Any, List
 
 
@@ -42,7 +42,7 @@ class FormRepository(FormRepositoryProto):
     async def create_from_template(self, template: Form) -> Form:
         form = Form(name=template.name, is_template=False)  # type: ignore
         for i in template.tasks:
-            form.tasks.append(Task(task_content=i.task_content,
+            form.tasks.srcend(Task(task_content=i.task_content,
                                    task_type=i.task_type,
                                    answers=i.answers))  # type: ignore
         self.session.add(form)

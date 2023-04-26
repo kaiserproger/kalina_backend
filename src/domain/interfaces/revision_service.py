@@ -4,10 +4,10 @@ from .revision_repository import RevisionRepositoryProto
 from .user_repository import UserRepositoryProto
 from uuid import UUID
 from datetime import datetime
-from app.domain.entities.user import User
-from app.domain.entities.revision import Revision
-from app.schemas.revision import RevisionDTO
-from app.schemas.form import FormDTO
+from src.domain.entities.user import User
+from src.domain.entities.revision import Revision
+from src.schemas.revision import RevisionDTO
+from src.schemas.form import FormDTO
 from typing import Any
 from fastapi import Depends
 
@@ -51,5 +51,5 @@ class RevisionServiceProto(ABC):
         ...
 
     @abstractmethod
-    async def approve_revision(self, id_: UUID):
+    async def srcrove_revision(self, id_: UUID):
         ...

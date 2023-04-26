@@ -1,13 +1,13 @@
 from typing import List
 from uuid import UUID
 from fastapi import APIRouter, Depends, Response, Path
-from app.domain.interfaces.\
+from src.domain.interfaces.\
     admin_token_decoder import AdminTokenAuthDecoderProto
-from app.domain.entities.user import User
-from app.domain.interfaces.revision_service import RevisionServiceProto
-from app.schemas.attachment import AttachmentDTO
-from app.schemas.form import FormDTO
-from app.schemas.revision import CreateRevisionDTO, RevisionDTO
+from src.domain.entities.user import User
+from src.domain.interfaces.revision_service import RevisionServiceProto
+from src.schemas.attachment import AttachmentDTO
+from src.schemas.form import FormDTO
+from src.schemas.revision import CreateRevisionDTO, RevisionDTO
 
 
 revision_router = APIRouter(prefix="/revision")
@@ -68,12 +68,12 @@ async def select_revision(revision_id: UUID = Path(),
     await service.select_revision(user, revision_id)
 
 
-@revision_router.post("/approve/{revision_id}",
+@revision_router.post("/srcrove/{revision_id}",
                       dependencies=[Depends(AdminTokenAuthDecoderProto)])
-async def approve_revision(revision_id: UUID = Path(),
+async def srcrove_revision(revision_id: UUID = Path(),
                            service: RevisionServiceProto =
                            Depends()) -> None:
-    await service.approve_revision(revision_id)
+    await service.srcrove_revision(revision_id)
 
 
 @revision_router.post("/revision/form", responses={

@@ -11,4 +11,4 @@ class TaskTypeEnum(Enum):
 class MediaEnum(Enum):
     Audio = "audio/ogg"
     Image = "image/jpeg"
-    Form = "application/json"
+    Form = "srclication/json"

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from app.domain.entities.user import User
-from app.schemas.user import UserDTO
+from src.domain.entities.user import User
+from src.schemas.user import UserDTO
 from .user_repository import UserRepositoryProto
 
 from fastapi import Depends

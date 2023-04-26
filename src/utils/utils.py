@@ -1,5 +1,5 @@
 from typing import Any
-from app.domain.entities.base import Base
+from src.domain.entities.base import Base
 
 
 async def model_to_dict(model: Base,

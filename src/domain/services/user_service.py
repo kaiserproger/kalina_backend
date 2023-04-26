@@ -1,6 +1,6 @@
-from app.domain.entities.user import User
-from app.domain.interfaces.user_repository import UserRepositoryProto
-from app.domain.interfaces.user_service import UserServiceProto
+from src.domain.entities.user import User
+from src.domain.interfaces.user_repository import UserRepositoryProto
+from src.domain.interfaces.user_service import UserServiceProto
 
 
 class UserService(UserServiceProto):

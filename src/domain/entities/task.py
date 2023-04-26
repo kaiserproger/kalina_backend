@@ -1,6 +1,6 @@
-from app.domain.entities.enums import TaskTypeEnum
+from src.domain.entities.enums import TaskTypeEnum
 from .base import Base
-from app.imports import Column, String, Enum, ARRAY, UUID, ForeignKey
+from src.imports import Column, String, Enum, ARRAY, UUID, ForeignKey
 from uuid import uuid4
 
 
