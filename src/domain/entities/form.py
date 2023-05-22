@@ -1,15 +1,22 @@
-from .base import Base
-from .task import Task
-from src.imports import Column, ForeignKey, UUID, relationship, Boolean, String
-from uuid import uuid4
+from typing import TYPE_CHECKING, Optional
+from uuid import UUID
+
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.domain.entities.base import Base
+
+if TYPE_CHECKING:
+    from src.domain.entities.task import Task
 
 
 class Form(Base):
-    __tablename__ = "Form"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    name = Column(String)
-    revision_id = Column(ForeignKey("Revision.id"),
-                         nullable=True)  # type: ignore
-    tasks: list[Task] = relationship(Task,
-                                     cascade="all, delete-orphan")  # type: ignore
-    is_template = Column(Boolean, default=False)
+    __tablename__ = "forms"
+
+    name: Mapped[str]
+    revision_id: Mapped[Optional[UUID]] = mapped_column(
+        ForeignKey("Revision.id"),
+        init=False,
+    )
+    tasks: Mapped[list["Task"]] = relationship()
+    is_template: Mapped[bool]

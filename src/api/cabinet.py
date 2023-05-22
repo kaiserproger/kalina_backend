@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
+
 from src.di.di_stubs import user_stub
 from src.domain.entities.user import User
-from src.domain.interfaces.cabinet_service import CabinetServiceProto
-from src.schemas.user import UserDTO
+from src.domain.interfaces.services.cabinet_service import CabinetServiceProto
+from src.schemas.user import UserDto
 
 
 cabinet_router = APIRouter(prefix="/cabinet")
@@ -14,5 +15,5 @@ cabinet_router = APIRouter(prefix="/cabinet")
 async def get_cabinet(
     cabinet_service: CabinetServiceProto = Depends(),
     user: User = Depends(user_stub)
-) -> UserDTO:
+) -> UserDto:
     return await cabinet_service.get_user_cabinet(user)

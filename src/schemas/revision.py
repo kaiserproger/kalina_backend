@@ -1,16 +1,16 @@
 from datetime import datetime
 from uuid import UUID
+
 from pydantic import BaseModel
 
-from src.schemas.attachment import AttachmentDTO
+from src.schemas.attachment import AttachmentDto
+from src.schemas.form import FormDto
 
-from .form import FormDTO
 
-
-class RevisionDTO(BaseModel):
+class RevisionDto(BaseModel):
     id: UUID
-    form: FormDTO
-    attachments: list[AttachmentDTO]
+    form: FormDto
+    attachments: list[AttachmentDto]
     shop_address: str  # Пока без валидации, на потом)))
     name: str
     expire_date: datetime
@@ -20,7 +20,7 @@ class RevisionDTO(BaseModel):
         orm_mode = True
 
 
-class CreateRevisionDTO(BaseModel):
+class CreateRevisionDto(BaseModel):
     form_template_id: UUID
     shop_address: str
     expire_date: datetime

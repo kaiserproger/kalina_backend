@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from src.domain.entities.user import User
-from src.schemas.user import UserDTO
-from .user_repository import UserRepositoryProto
+from src.schemas.user import UserDto
+from ..repositories.user_repository import UserRepositoryProto
 
 from fastapi import Depends
 
@@ -13,5 +13,5 @@ class CabinetServiceProto(ABC):
         ...
 
     @abstractmethod
-    async def get_user_cabinet(self, user: User) -> UserDTO:
+    async def get_user_cabinet(self, user: User) -> UserDto:
         ...

@@ -1,10 +1,12 @@
 from typing import Optional
-from pydantic import BaseModel, validator
-from .revision import RevisionDTO
 from re import search
 
+from pydantic import BaseModel, validator
 
-class SignDTO(BaseModel):
+from src.schemas.revision import RevisionDto
+
+
+class SignDto(BaseModel):
     phone: str
 
     @validator('phone')
@@ -15,7 +17,7 @@ class SignDTO(BaseModel):
         return v.replace("+7", "") if v[0] == "+" else v.replace("8", "")
 
 
-class VerifyDTO(SignDTO):
+class VerifyDto(SignDto):
     code: int
 
     @validator('code')
@@ -25,13 +27,13 @@ class VerifyDTO(SignDTO):
         return v
 
 
-class RegisterDTO(SignDTO):
+class RegisterDto(SignDto):
     name: str
 
 
-class UserDTO(RegisterDTO):
+class UserDto(RegisterDto):
     scores: int
-    revision: Optional[RevisionDTO]
+    revision: Optional[RevisionDto]
 
     class Config:
         orm_mode = True

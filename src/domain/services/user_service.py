@@ -1,6 +1,6 @@
 from src.domain.entities.user import User
-from src.domain.interfaces.user_repository import UserRepositoryProto
-from src.domain.interfaces.user_service import UserServiceProto
+from domain.interfaces.repositories.user_repository import UserRepositoryProto
+from domain.interfaces.services.user_service import UserServiceProto
 
 
 class UserService(UserServiceProto):
@@ -8,14 +8,14 @@ class UserService(UserServiceProto):
         self.user_repo = user_repo
 
     async def create_user(self, phone: str, name: str) -> User:
-        await self.user_repo.\
-            create(User(phone=phone, name=name,
-                        admin=False, scores=0))  # type: ignore
-        return await self.user_repo.read_by_id(phone, True)
+        user = User(
+            phone=phone,
+            name=name,
+            admin=False,
+            scores=0
+        )
+        await self.user_repo.create_user(user)  # type: ignore
+        return await self.user_repo.get_user_by_phone(phone)
 
-    async def is_user_exists(self, phone: str):
-        '''It will throw an exception if user is not exist'''
-        await self.user_repo.read_by_id(phone, True)
-
-    async def read_by_id(self, phone: str, no_joins: bool):
-        return await self.user_repo.read_by_id(phone, no_joins)
+    async def get_user_by_phone(self, phone: str, no_joins: bool):
+        return await self.user_repo.get_user_by_phone(phone)

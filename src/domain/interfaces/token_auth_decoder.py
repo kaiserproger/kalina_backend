@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import Depends
 
 from .token_interactor import TokenInteractorProto
-from .user_repository import UserRepositoryProto
+from .repositories.user_repository import UserRepositoryProto
 
 
 class TokenAuthDecoderProto(ABC):

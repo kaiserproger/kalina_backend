@@ -7,12 +7,13 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
 from alembic import context
 
-from src.domain.entities.attachment import *
-from src.domain.entities.revision import *
-from src.domain.entities.form import *
-from src.domain.entities.revision import *
-from src.domain.entities.task import *
-from src.domain.entities.user import *
+from src.domain.entities.base import Base
+from src.domain.entities.attachment import Attachment
+from src.domain.entities.revision import Revision
+from src.domain.entities.form import Form
+from src.domain.entities.task import Task
+from src.domain.entities.user import User
+from src.domain.entities.answer import Answer
 
 
 # this is the Alembic Config object, which provides

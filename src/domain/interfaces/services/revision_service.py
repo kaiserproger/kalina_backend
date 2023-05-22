@@ -1,25 +1,15 @@
 from abc import ABC, abstractmethod
-from .form_repository import FormRepositoryProto
-from .revision_repository import RevisionRepositoryProto
-from .user_repository import UserRepositoryProto
+from typing import Any
 from uuid import UUID
 from datetime import datetime
+
 from src.domain.entities.user import User
 from src.domain.entities.revision import Revision
-from src.schemas.revision import RevisionDTO
-from src.schemas.form import FormDTO
-from typing import Any
-from fastapi import Depends
+from src.schemas.revision import RevisionDto
+from src.schemas.form import FormDto
 
 
 class RevisionServiceProto(ABC):
-
-    @abstractmethod
-    def __init__(self, revision_repo: RevisionRepositoryProto = Depends(),
-                 form_repo: FormRepositoryProto = Depends(),
-                 user_repo: UserRepositoryProto = Depends()) -> None:
-        ...
-
     @abstractmethod
     async def create_revision(self, form_id: UUID, address: str,
                               expire: datetime) -> None:
@@ -30,7 +20,7 @@ class RevisionServiceProto(ABC):
         ...
 
     @abstractmethod
-    async def get_available_revisions(self) -> list[RevisionDTO]:
+    async def get_available_revisions(self) -> list[RevisionDto]:
         ...
 
     @abstractmethod
@@ -39,7 +29,7 @@ class RevisionServiceProto(ABC):
         ...
 
     @abstractmethod
-    async def update_revision_form(self, user: User, form: FormDTO):
+    async def update_revision_form(self, user: User, form: FormDto):
         ...
 
     @abstractmethod

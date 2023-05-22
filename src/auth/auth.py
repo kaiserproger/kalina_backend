@@ -1,4 +1,8 @@
 from typing import Any
+
+from fastapi import Depends
+from redis.asyncio.client import Pipeline
+
 from src.auth.header_extract import HeaderTokenExtractor
 from src.auth.jwt import JWTInteractor
 from src.di.di_stubs import get_redis_stub
@@ -6,12 +10,10 @@ from src.domain.entities.user import User
 from src.domain.interfaces.token_auth_decoder import TokenAuthDecoderProto
 from src.domain.interfaces.token_auth_encoder import TokenAuthEncoderProto
 from src.domain.interfaces.token_interactor import TokenInteractorProto
-from src.domain.interfaces.user_repository import UserRepositoryProto
-from src.domain.interfaces.user_service import UserServiceProto
+from domain.interfaces.repositories.user_repository import UserRepositoryProto
+from domain.interfaces.services.user_service import UserServiceProto
 from src.exceptions.invalid_token import InvalidTokenException
 from src.exceptions.not_found import NotFoundException
-from src.imports import Pipeline
-from fastapi import Depends
 
 
 class TokenInteractor(TokenInteractorProto):
@@ -34,9 +36,9 @@ class TokenAuthDecoder(TokenAuthDecoderProto):
         self.user_repo = user_repo
         self.interactor = interactor
 
-    async def __call__(self, **kwds: Any) -> User:
+    async def __call__(self) -> User:
         payload = await self.interactor.validate()
-        user = await self.user_repo.read_by_id(payload["phone"], no_joins=True)
+        user = await self.user_repo.get_user_by_phone(payload["phone"])
         return user
 
 
@@ -57,19 +59,18 @@ class AdminTokenAuthDecoder:
 
     async def __call__(self) -> Any:
         payload = await self.interactor.validate()
-        user = await self.user_repo.read_by_id(payload["phone"], no_joins=True)
+        user = await self.user_repo.get_user_by_phone(payload["phone"])
         if not user.admin:
             raise InvalidTokenException()
 
 
 class PhoneAuthInteractor:
-
-    def __init__(self, user_service: UserServiceProto =
-                 Depends(),
-                 token_encoder: TokenAuthEncoderProto =
-                 Depends(),
-                 redis: Pipeline =
-                 Depends(get_redis_stub)) -> None:
+    def __init__(
+        self,
+        user_service: UserServiceProto = Depends(),
+        token_encoder: TokenAuthEncoderProto = Depends(),
+        redis: Pipeline = Depends(get_redis_stub)
+    ) -> None:
         self.redis = redis
         self.user_service = user_service
         self.token_encoder = token_encoder
@@ -86,25 +87,25 @@ class PhoneAuthInteractor:
 
     async def confirm(self, phone: str, code: int) -> str:
         # UNTESTED !!!!!
-        value: dict = await self.redis.hget(phone, "code")
-        extracted_code: int = value["code"]
+        value: int = await self.redis.hget(phone, "code")
+        extracted_code = value
         if code != extracted_code:
             raise ValueError("Code mismatch!")
         await self.redis.hdel(phone, "code")
         await self.redis.hdel(phone, "activated")
         # END UNTESTED
-        user = await self.user_service.read_by_id(phone, True)
+        user = await self.user_service.get_user_by_phone(phone)
         return await self.token_encoder(**{"phone": user.phone,
                                            "admin": user.admin})
 
     async def finish_register(self, phone: str, name: str):
-        # UNTESTED !!!!!
         value: dict = await self.redis.hgetall(phone)
         if not value:
             raise NotFoundException("No registration present!")
         if not value.get("activated"):
             raise InvalidTokenException("You haven't finished registration!")
-        # END UNTESTED
         user = await self.user_service.create_user(phone, name)
-        return await self.token_encoder(**{"phone": user.phone,
-                                           "admin": user.admin})
+        return await self.token_encoder(
+            phone=user.phone,
+            admin=user.admin
+        )

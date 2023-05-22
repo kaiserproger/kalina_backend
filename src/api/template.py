@@ -1,11 +1,12 @@
 from typing import List
 from uuid import UUID
 from fastapi import APIRouter
-from src.domain.interfaces.admin_token_decoder import AdminTokenAuthDecoderProto
-from src.domain.interfaces.form_service import FormServiceProto
-from src.schemas.form import FormDTO
+from src.domain.interfaces.\
+    admin_token_decoder import AdminTokenAuthDecoderProto
+from domain.interfaces.services.form_service import FormServiceProto
+from src.schemas.form import FormDto
 
-from src.schemas.task import TaskDTO
+from src.schemas.task import TaskDto
 
 from fastapi import Depends
 
@@ -15,8 +16,8 @@ template_router = APIRouter(prefix="/template")
 
 @template_router.post("/", dependencies=[Depends(AdminTokenAuthDecoderProto)])
 async def create_template(
-    tasks: list[TaskDTO],
     name: str,
+    tasks: list[TaskDto],
     form_service: FormServiceProto = Depends()
 ):
     await form_service.create_template(tasks, name)
@@ -25,7 +26,7 @@ async def create_template(
 @template_router.get("/")
 async def get_templates(
     form_service: FormServiceProto = Depends()
-) -> List[FormDTO]:
+) -> List[FormDto]:
     return await form_service.get_templates()
 
 
@@ -33,5 +34,5 @@ async def get_templates(
 async def get_template(
     template_id: UUID,
     form_service: FormServiceProto = Depends()
-) -> FormDTO:
+) -> FormDto:
     return await form_service.get_template(template_id)

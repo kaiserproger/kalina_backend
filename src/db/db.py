@@ -1,5 +1,4 @@
-from src.imports import create_async_engine, AsyncSession
-from src.domain.entities.base import Base
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from redis.asyncio import from_url
 
 
@@ -12,10 +11,6 @@ class Db:
                 session_.begin():
             yield session_
 
-    async def create_all(self):
-        async with self.engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)  # type: ignore
-
 
 class RedisConnector:
     def __init__(self, url: str) -> None:
@@ -24,3 +19,6 @@ class RedisConnector:
     async def session(self):
         async with self.redis_client.pipeline(transaction=True) as tx:
             yield tx
+
+    async def dispose(self):
+        await self.redis_client.close(close_connection_pool=True)

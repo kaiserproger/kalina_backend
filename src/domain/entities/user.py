@@ -1,15 +1,23 @@
-from src.domain.entities.revision import Revision
-from .base import Base
-from src.imports import Column, String, relationship, Boolean, Integer
+from typing import TYPE_CHECKING
+
+from sqlalchemy.orm import Mapped, relationship, mapped_column
+
+from src.domain.entities.base import Base
+
+if TYPE_CHECKING:
+    from src.domain.entities.revision import Revision
+
+ACTIVE_REVISION_QUERY = "and_(Revision.user_id == User.id, not_(Revision.completed))"
 
 
 class User(Base):
-    __tablename__ = "User"
-    phone = Column(String, primary_key=True)
-    revision: Revision = relationship(Revision,
-                                      primaryjoin="and_(User.phone == Revision.user_id, Revision.completed == False)",
-                                      uselist=False,
-                                      )  # type: ignore
-    name = Column(String)
-    admin = Column(Boolean, default=False)
-    scores = Column(Integer)
+    __tablename__ = "users"
+
+    phone: Mapped[str] = mapped_column(unique=True, index=True)
+    active_revision: Mapped["Revision"] = relationship(
+        primaryjoin=ACTIVE_REVISION_QUERY,
+        init=False,
+    )
+    name: Mapped[str]
+    admin: Mapped[bool]
+    scores: Mapped[int]

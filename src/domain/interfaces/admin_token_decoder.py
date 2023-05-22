@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 from .token_interactor import TokenInteractorProto
-from .user_repository import UserRepositoryProto
+from .repositories.user_repository import UserRepositoryProto
 
 from fastapi import Depends
 

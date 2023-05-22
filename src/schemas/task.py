@@ -1,11 +1,13 @@
 from pydantic import BaseModel
+
+from src.schemas.answer import AnswerDto
 from src.domain.entities.enums import TaskTypeEnum
 
 
-class TaskDTO(BaseModel):
+class TaskDto(BaseModel):
     task_content: str
     task_type: TaskTypeEnum
-    answer: list[str]
+    answers: list[AnswerDto]
 
     class Config:
         orm_mode = True

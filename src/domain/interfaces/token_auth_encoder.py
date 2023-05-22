@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Any
 
 from fastapi import Depends
 
@@ -13,5 +12,5 @@ class TokenAuthEncoderProto(ABC):
         ...
 
     @abstractmethod
-    async def __call__(self, **kwds: Any) -> str:
+    async def __call__(self, phone: str, admin: bool) -> str:
         ...

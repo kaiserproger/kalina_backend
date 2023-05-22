@@ -1,6 +1,8 @@
-from src.imports import as_declarative
+from uuid import UUID
+
+from sqlalchemy.orm import MappedAsDataclass, DeclarativeBase, Mapped,\
+    mapped_column
 
 
-@as_declarative()
-class Base:
-    pass
+class Base(DeclarativeBase, MappedAsDataclass):
+    id: Mapped[UUID] = mapped_column(primary_key=True, init=False)
